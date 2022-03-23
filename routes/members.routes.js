@@ -10,6 +10,13 @@ router.get("/getmembers", isAuthenticated, async (req, res, next) => {
   res.status(200).json(result)
 })
 
+router.post("/addmember", isAuthenticated, async (req, res, next) => {
+  const {name, surname, birthday, year} = req.body
+  const response = await MemberModel.create({name, surname, birthday, year, owner:req.payload._id})
+
+  res.status(200).json(response)
+})
+
 
 
 router.get("/verify-token", isAuthenticated, (req, res, next) => {

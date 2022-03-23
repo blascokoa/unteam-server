@@ -5,6 +5,7 @@ const memberSchema = new Schema(
     name: String,
     surname: String,
     birthday: Date,
+    year: Number,
     category: String,
     owner: {
       type: Schema.Types.ObjectId,
