@@ -4,7 +4,7 @@ const ClubModel = require("../models/Club.model")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken");
 const getRandomCode = require("../utils/string-generator")
-const {sendVerifyEmail, sendRecoverEmail} = require("../utils/emailer")
+const {sendRecoverEmail} = require("../utils/emailer")
 const isAuthenticated = require("../middleware/isAuthenticated");
 
 router.post("/login", async (req, res, next) => {
@@ -38,10 +38,9 @@ router.post("/login", async (req, res, next) => {
     const payload = {
       _id: foundUser._id,
       email: foundUser.email,
-      role: foundUser.role
+      role: foundUser.role,
+      club: foundUser.onClub
     }
-
-    console.log(payload)
 
     const authToken = jwt.sign(
       payload,
@@ -113,12 +112,14 @@ router.post("/signup/club", async (req, res, next) => {
     console.log(newUser)
 
     // Adding the Club to DataBase
-    await ClubModel.create({
+    const newClub = await ClubModel.create({
       "name":clubName,
       "owner": newUser._id,
       "nif":clubNIF,
       "code": generatedCode
     })
+
+    await UserModel.findByIdAndUpdate(newUser._id, {onClub: newClub._id})
     console.log("verification 9 - DONE - Club Created on database")
 
     res.status(200).json()

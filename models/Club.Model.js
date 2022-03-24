@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-const {getRandomCode} = require("../utils/string-generator")
 
 const clubSchema = new Schema(
   {

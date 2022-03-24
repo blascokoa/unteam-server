@@ -9,11 +9,12 @@ router.get("/", (req, res, next) => {
 const authRoutes = require("./auth.routes")
 const dashboardRoutes = require("./dashboard.routes")
 const membersRoutes = require("./members.routes")
-
+const publicationsRoutes = require("./publications.routes")
 
 router.use("/auth", authRoutes)
 router.use("/dashboard", dashboardRoutes)
 router.use("/members", membersRoutes)
+router.use("/publications", publicationsRoutes)
 
 
 
