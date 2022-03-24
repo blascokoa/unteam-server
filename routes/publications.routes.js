@@ -22,6 +22,17 @@ router.post("/addpublication", isAuthenticated, async (req, res, next)=>{
   res.status(200).json(response)
 })
 
+router.patch("/editpublication", isAuthenticated, async (req, res, next)=>{
+  const {id, body} = req.body
+  console.log(id)
+
+  const response = await PublicationModel.findByIdAndUpdate(id,{
+    message:body
+  })
+
+  res.status(200).json()
+})
+
 router.delete("/deletepublication", isAuthenticated, isAdmin, async (req, res, next) =>{
   const {id} = req.body.data
   const response = await PublicationModel.findByIdAndDelete(id)
@@ -29,15 +40,9 @@ router.delete("/deletepublication", isAuthenticated, isAdmin, async (req, res, n
 })
 
 router.delete("/deletemanypublications", isAuthenticated, async(req, res, next)=>{
-  const {id} = req.body.data
-  id.map(async (eachPublication)=>{
-    try{
-      await PublicationModel.findByIdAndDelete(eachPublication)
-      return true
-    }catch(error){
-      return false
-    }
-  })
+  const {data} = req.body
+  await PublicationModel.deleteMany({_id :{$in: data}})
+
   res.status(200).json()
 })
 
