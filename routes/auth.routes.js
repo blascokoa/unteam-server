@@ -154,7 +154,8 @@ router.post("/signup/member", async (req, res, next) => {
     }
     console.log("user doesnt exists")
     // Check if NIF is already in use
-    const foundClubCode = await ClubModel.findOne({clubCode})
+
+    const foundClubCode = await ClubModel.find({code: clubCode})
     if (!foundClubCode) {
       res.status(400).json({ errorMessage: "Code not found, remember, its case sensitive" })
       return;
