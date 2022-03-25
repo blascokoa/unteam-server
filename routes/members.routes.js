@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const ClubModel = require("../models/Club.model")
+const ClubModel = require("../models/Club.Model")
 const MemberModel = require("../models/Member.model")
 const isAuthenticated = require("../middleware/isAuthenticated");
 

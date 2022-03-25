@@ -52,10 +52,7 @@ router.get("/getreaders", isAuthenticated, async(req, res, next)=>{
   let counter = 0
 
   response.forEach((eachPublication)=>{
-    console.log(eachPublication.title)
-    if (eachPublication.readers.includes(_id)){
-      console.log(eachPublication.title)
-    }else{
+    if (!eachPublication.readers.includes(_id)){
       counter += 1
     }
   })

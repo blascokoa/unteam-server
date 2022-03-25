@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const UserModel = require("../models/User.model")
-const ClubModel = require("../models/Club.model")
+const ClubModel = require("../models/Club.Model")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken");
 const getRandomCode = require("../utils/string-generator")

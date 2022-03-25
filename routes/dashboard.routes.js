@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const UserModel = require("../models/User.model")
-const ClubModel = require("../models/Club.model")
-const GroupModel = require("../models/Group.model")
+const ClubModel = require("../models/Club.Model")
+const GroupModel = require("../models/Group.Model")
 const isAuthenticated = require("../middleware/isAuthenticated");
 
 router.get("/settings", isAuthenticated, async (req, res, next) => {
