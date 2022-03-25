@@ -4,7 +4,7 @@ const ClubModel = require("../models/Club.Model")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken");
 const getRandomCode = require("../utils/string-generator")
-const {sendRecoverEmail} = require("../utils/emailer")
+const {sendRecoverEmail, sendVerifyEmail} = require("../utils/emailer")
 const isAuthenticated = require("../middleware/isAuthenticated");
 
 router.post("/login", async (req, res, next) => {
@@ -168,7 +168,8 @@ router.post("/signup/member", async (req, res, next) => {
     console.log("verification built")
     // Send verification
     // await sendVerifyEmail(email, verificationCode)
-
+    const link = process.env.ORIGIN + "/signup/email-confirmation/" + verificationCode
+    console.log("the link for verify email is: ", link)
     // Adding the user to DataBase
     await UserModel.create({
       email,
@@ -194,7 +195,8 @@ router.post("/recover-password", async(req, res, next)=>{
       return false;
     }
     const verificationCode = getRandomCode(12)
-    await sendRecoverEmail(email, verificationCode)
+    console.log("the code is: ", verificationCode)
+    // await sendRecoverEmail(email, verificationCode)
     await UserModel.findOneAndUpdate(email, {requestedReset:true, verificationCode:verificationCode})
     res.status(200).json({res: true})
   } catch(err){

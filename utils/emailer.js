@@ -1,7 +1,8 @@
 const nodeoutlook = require('nodejs-nodemailer-outlook')
 
 const sendVerifyEmail = ( async (email, code) => {
-  const link = process.env.VERIFY_EMAIL + "/signup/email-confirmation/" + code
+  const link = process.env.ORIGIN + "/signup/email-confirmation/" + code
+
   nodeoutlook.sendEmail({
     auth: {
       user: process.env.OUTLOOK_EMAIL,
@@ -17,7 +18,7 @@ const sendVerifyEmail = ( async (email, code) => {
 });
 
 const sendRecoverEmail = ( async (email, code) => {
-  const link = process.env.VERIFY_EMAIL + "/api/auth/recover?code=" + code
+  const link = process.env.ORIGIN + "/api/auth/recover?code=" + code
   nodeoutlook.sendEmail({
     auth: {
       user: process.env.OUTLOOK_EMAIL,
